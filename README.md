@@ -8,7 +8,7 @@ Sistema de gestión de órdenes para carnicería/cocina con interfaz gráfica de
 ## 📋 Características
 - ✨ Interfaz gráfica intuitiva con pestañas
 - 📝 Creación rápida de órdenes con cliente, productos y notas
-- 🔄 Gestión de estados: New → Preparing → Ready
+- 🔄 Gestión de estados: Nuevo → Preparando → Listo
 - ⏱️ Temporizador en tiempo real para cada orden
 - 📺 Ventana de proyección para pantalla secundaria/TV
 - ✏️ Edición de órdenes existentes
@@ -73,11 +73,13 @@ kitchen_orders/
 5. Haz clic en "Crear Orden"
 
 ### Gestionar órdenes
-- **New**: Órdenes recién creadas  
-- Ckick en "Editar" → Permite editar el contenido de la orden
+- **New**: Órdenes recién creadas
+- Ckick en "Editar" → Pérmite editar el contenido de la órden
 - Click en "Empezar a preparar" → **Preparando**  
 - Click en "Listo" → **Listo**  
-- Click en "Eliminar" → Elimina la orden
+- Click en "Eliminar" → Elimina la órden
+(Órdenes de ejemplo creadas en la pestaña "Nuevo", puedes eliminarlas en el archivo storage.py)
+
 
 ### Ventana de Proyección
 - Haz clic en "📺 Abrir Pantalla Carnicería"

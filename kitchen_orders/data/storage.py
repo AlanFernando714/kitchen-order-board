@@ -48,4 +48,5 @@ def load_orders():
             Order("Cliente 2", ["2kg Higado", "3kg Molida", "2kg Jamon", "3kg Chorizo", "5kg Manitas"], "Para las 2pm"),
             Order("Cliente 3", ["1kg Puerco", "2kg Pollo"])
         ]
+        #Para eliminar el ejemplo de órdenes, únicamente dejar orders_list = []
         return orders_list
