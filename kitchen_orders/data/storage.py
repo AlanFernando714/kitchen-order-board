@@ -43,10 +43,11 @@ def load_orders():
     else:
         # Si no existe archivo, crea órdenes de ejemplo
         print("No se encontró archivo de backup. Creando órdenes de ejemplo.")
+        
+        #Para eliminar el ejemplo de órdenes, únicamente dejar orders_list = []
         orders_list = [
             Order("Cliente 1", ["5kg Res taco", "9kg Res guiso"]),
             Order("Cliente 2", ["2kg Higado", "3kg Molida", "2kg Jamon", "3kg Chorizo", "5kg Manitas"], "Para las 2pm"),
             Order("Cliente 3", ["1kg Puerco", "2kg Pollo"])
         ]
-        #Para eliminar el ejemplo de órdenes, únicamente dejar orders_list = []
         return orders_list
