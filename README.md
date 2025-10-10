@@ -74,9 +74,10 @@ kitchen_orders/
 
 ### Gestionar órdenes
 - **New**: Órdenes recién creadas  
-- Click en "Start Cooking" → **Preparing**  
-- Click en "Mark Ready" → **Ready**  
-- Click en "Remove" → elimina la orden
+- Ckick en "Editar" → Permite editar el contenido de la orden
+- Click en "Empezar a preparar" → **Preparando**  
+- Click en "Listo" → **Listo**  
+- Click en "Eliminar" → Elimina la orden
 
 ### Ventana de Proyección
 - Haz clic en "📺 Abrir Pantalla Carnicería"
@@ -107,10 +108,10 @@ Este proyecto está bajo la licencia **MIT**.
 ---
 
 ## 👨‍💻 Autor
-**Alan Carlos Flores**  
+**Alan Fernando Carlos Flores**  
 Desarrollado para optimizar la gestión de órdenes en carnicerías y cocinas.
 
-📧 Contacto: alanfernando714@gmail.com  
+📧 Contacto: alan.carlos.f2004@gmail.com  
 🔗 GitHub: [AlanFernando714](https://github.com/AlanFernando714)
 
 ---
