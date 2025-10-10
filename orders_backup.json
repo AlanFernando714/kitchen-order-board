@@ -1,0 +1,87 @@
+{
+  "last_id": 8,
+  "orders": [
+    {
+      "number": "#002",
+      "table": "Cliente 2",
+      "items": [
+        "2kg Higado",
+        "3kg Molida",
+        "2kg Jamon",
+        "3kg Chorizo",
+        "5kg Manitas"
+      ],
+      "notes": "Para las 2pm",
+      "status": "Listo",
+      "created_at": "2025-10-09T13:09:33.343560"
+    },
+    {
+      "number": "#003",
+      "table": "Cliente 3",
+      "items": [
+        "1kg Puerco",
+        "2kg Pollo",
+        "salchichon"
+      ],
+      "notes": "jajajajaja",
+      "status": "Listo",
+      "created_at": "2025-10-09T13:09:33.343564"
+    },
+    {
+      "number": "#004",
+      "table": "Hansuh",
+      "items": [
+        "jshdfj",
+        "asdfjhg",
+        "asfdgjhsdfgj",
+        "sdfgsdkfg",
+        "sdfgsdfg",
+        "sdfgsd",
+        "sdgf",
+        "sdfg",
+        "sdfg",
+        "sdfg"
+      ],
+      "notes": "para las 4 porvafor",
+      "status": "Listo",
+      "created_at": "2025-10-09T13:11:42.382835"
+    },
+    {
+      "number": "#005",
+      "table": "BIZLINK 1",
+      "items": [
+        "ANSBDF",
+        "ASDF",
+        "ASDG",
+        "ASDFG",
+        "SDFG",
+        "SDFG",
+        "SDFG"
+      ],
+      "notes": "porfavor preparar rapido antes de las 2",
+      "status": "Listo",
+      "created_at": "2025-10-09T13:12:26.581090"
+    },
+    {
+      "number": "#006",
+      "table": "queloco",
+      "items": [
+        "asjgn",
+        "asfgkjnjk"
+      ],
+      "notes": "Holiwis",
+      "status": "Preparando",
+      "created_at": "2025-10-09T13:17:46.558349"
+    },
+    {
+      "number": "#007",
+      "table": "sadf",
+      "items": [
+        "asdf"
+      ],
+      "notes": "asdfasfsgsdfgsdfgsdfg",
+      "status": "Preparando",
+      "created_at": "2025-10-10T09:19:00.177583"
+    }
+  ]
+}
