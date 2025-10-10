@@ -78,7 +78,9 @@ kitchen_orders/
 - Click en "Empezar a preparar" → **Preparando**  
 - Click en "Listo" → **Listo**  
 - Click en "Eliminar" → Elimina la órden
-(Órdenes de ejemplo creadas en la pestaña "Nuevo", puedes eliminarlas en el archivo storage.py)
+
+Nota:
+Órdenes de ejemplo creadas en la pestaña "Nuevo", puedes eliminarlas en el archivo storage.py
 
 
 ### Ventana de Proyección
