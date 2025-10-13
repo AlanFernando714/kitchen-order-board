@@ -1,5 +1,0 @@
-Crearlo por primera vez // Agregar logo
-pyinstaller --onefile --windowed --name=KitchenOrders --icon=Logo-Flecha.ico --add-data "kitchen_orders;kitchen_orders" run.py
-
-Para cargar cambios a ejecutable después de crearlo por primera vez
-pyinstaller KitchenOrders.spec
