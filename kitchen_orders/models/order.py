@@ -6,7 +6,7 @@ class Order:
     # Variable de clase para llevar la cuenta del próximo ID a asignar
     _ids = 1  
     
-    def __init__(self, table, items, notes="", status="Nuevo", created_at=None, number=None):
+    def __init__(self, table, items, notes="", status="Nuevo", created_at=None, number=None, updated_at=None):
         """
         Constructor de la clase Order.
         Inicializa una nueva orden o restaura una existente desde datos cargados.
@@ -39,6 +39,15 @@ class Order:
         else:
             # Para órdenes nuevas, registra la hora actual
             self.created_at = datetime.now()
+        
+        if updated_at:
+            if isinstance(updated_at,str):
+                self.updated_at = datetime.fromisoformat(updated_at)
+            else:
+                self.updated_at = updated_at
+        else:
+            self.updated_at = self.created_at #Inicialmente es ugual a created_at
+            
 
     def next_status(self):
         """Avanza el estado de la orden (Nuevo -> Preparando -> Listo)."""
@@ -68,7 +77,8 @@ class Order:
             notes=data.get("notes", ""),
             status=data.get("status", "Nuevo"),
             created_at=data.get("created_at"),
-            number=data.get("number")
+            number=data.get("number"),
+            updated_at=data.get("updated_at")
         )
 
     @classmethod

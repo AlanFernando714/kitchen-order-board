@@ -1,8 +1,14 @@
 # kitchen_orders/config.py
 """Configuraciones generales de la aplicación"""
 
+#Timedelta para definir umbral de tiempo
+from datetime import timedelta
+
 # Archivos y rutas
 BACKUP_FILE = "orders_backup.json"
+
+#Umbral de tiempo para la alerta de modificacion de la órden
+MODIFIED_THRESHOLD = timedelta(minutes=5) #El tiempo que dura el parpadeo de la tarjeta
 
 # Configuración de ventanas
 MAIN_WINDOW_SIZE = "800x600"
@@ -34,7 +40,10 @@ COLORS = {
     "remove_btn": "#e74c3c",
     "edit_btn_fg": "#2980b9",
     "save_edit_btn": "#2ecc71",
-    "ready_card": "white"
+    "ready_card": "white",
+    "alert_color": "#FF9800", 
+    "flash_color_alt": "#E0E0E0",
+    "alert_bg": "#FFFDE7"
 }
 
 # Fuentes

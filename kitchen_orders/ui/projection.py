@@ -1,8 +1,9 @@
 import tkinter as tk
-from datetime import datetime
+from datetime import datetime, timedelta
 # Importar desde módulos locales
 from ..utils.time_utils import format_elapsed
-from ..config import COLORS, FONTS, PROJECTION_WINDOW_SIZE, PROJECTION_COLUMNS, MAX_VISIBLE_PROJECTION_ORDERS
+from ..config import COLORS, FONTS, PROJECTION_WINDOW_SIZE, PROJECTION_COLUMNS, MAX_VISIBLE_PROJECTION_ORDERS, MODIFIED_THRESHOLD
+from ..ui.order_card import is_recently_modified
 
 class ProjectionWindow:
     def __init__(self, root, orders, elapsed_vars, **kwargs):

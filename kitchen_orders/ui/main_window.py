@@ -3,19 +3,22 @@ from tkinter import ttk, messagebox
 # Importar desde módulos locales
 from ..models.order import Order
 from ..data.storage import save_orders
-from ..utils.time_utils import format_elapsed
+from ..utils.basic_time import format_elapsed
+from ..utils.time_utils import flash_modified_cards
 from ..config import MAX_PREPARING_ORDERS, MAIN_WINDOW_SIZE, ORDER_STATUSES, ORDER_CARD_COLUMNS
 from ..ui.order_form import OrderForm
 from ..ui.order_card import OrderCard
 from ..ui.edit_window import EditWindow
 from ..ui.projection import ProjectionWindow
+from datetime import datetime #datetime para updated_at en edicion de órdenes
 
 class MainWindow:
     def __init__(self, root, orders):
         self.root = root
         self.orders = orders
         self.tabs = {}
-        self.elapsed_vars = {} 
+        self.elapsed_vars = {}
+        self.flashing_cards = {} 
 
         self.root.title("Kitchen Orders")
         self.root.geometry(MAIN_WINDOW_SIZE)
@@ -74,6 +77,8 @@ class MainWindow:
         order.table = new_table
         order.items = new_items_list
         order.notes = new_notes
+        
+        order.updated_at = datetime.now()
         
         edit_window.destroy()
         save_orders(self.orders)
@@ -134,7 +139,8 @@ class MainWindow:
                 self.elapsed_vars, 
                 self.advance_order, 
                 self.remove_order,
-                self.open_edit_window
+                self.open_edit_window,
+                self.flashing_cards
             )
             card.grid(row=row, column=col, padx=10, pady=6, sticky="nsew")
 
@@ -147,7 +153,12 @@ class MainWindow:
             for order in self.orders:
                 if order.number in self.elapsed_vars:
                     self.elapsed_vars[order.number].set(format_elapsed(order.created_at))
-            self.root.after(1000, self._tick)
+            
+            #Manejar el parpadeo (pasamos la lista de tarjetas y órdenes)
+            flash_modified_cards(self.root, self.orders, self.flashing_cards)
 
+            #Cambia la frecuencia a 500ms para el parpadeo
+            self.root.after(500, self._tick)
+            
     def _start_tick(self):
         self._tick()
