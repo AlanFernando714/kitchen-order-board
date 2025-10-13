@@ -1,5 +1,6 @@
 # kitchen_orders/utils/time_utils.py
 
+import tkinter as tk
 from datetime import datetime, timedelta
 from .basic_time import format_elapsed
 from ..config import COLORS, MODIFIED_THRESHOLD
@@ -32,6 +33,14 @@ def flash_modified_cards(root_widget, orders_lists, flashing_cards_dict):
                     relief="groove",
                     bg=COLORS["ready_card"]
                 )
+                #Actualizar el bg de todos los widgets hijos
+                for child in card.winfo_children():
+                    if isinstance(child, tk.Frame):
+                        child.config(bg=COLORS["ready_card"])
+                        #Actualizar los nietos tambien (labels dentro de frames)
+                        for grandchild in child.winfo_children():
+                            if isinstance (grandchild, tk.Label) and grandchild.cget("bg") == COLORS ["alert_bg"]:
+                                grandchild.config(bg=COLORS["ready_card"])  
             cards_to_remove.append(order_number)
     
     #Remover tarjetas que ya no deben parpadear
