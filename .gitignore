@@ -3,6 +3,10 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Archivos de datos del proyecto (Kitchen Orders)
+orders_backup.json
+df
+
 # C extensions
 *.so
 
