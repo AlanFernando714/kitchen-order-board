@@ -13,6 +13,7 @@ class ProjectionWindow:
         self.window = None
         self.projection_frame = None
         self.clock_var = tk.StringVar()
+        self.flashing_projection_cards = {} #Rastrear tarjetas con alerta
 
     def open(self):
         if self.window is not None and self.window.winfo_exists():
@@ -34,6 +35,7 @@ class ProjectionWindow:
             self.projection_frame.columnconfigure(i, weight=1, uniform="col")
             
         self.render()
+        self._start_alert_check() #Iniciar verificación de alertas
 
     def _create_header(self):
         header = tk.Frame(self.window, bg=COLORS["header_bg"], height=50)
@@ -60,7 +62,46 @@ class ProjectionWindow:
         self.clock_var.set(datetime.now().strftime("%H:%M:%S"))
         if self.window and self.window.winfo_exists():
             self.window.after(1000, self._update_clock)
-
+            
+            
+    def _start_alert_check(self):
+        #Inicia el ciclo de verificación de alertas en proyeccion
+        if self.window and self.window.winfo_exists():
+            self._check_modified_cards()
+            self.window.after(500, self._start_alert_check)      
+    
+    def _check_modified_cards(self):
+        #Verifica y actualiza el estilo de las tarjetas modificadas
+        cards_to_remove = []
+        
+        for order_number, card in list(self.flashing_projection_cards.items()):
+            order = next ((o for o in self.orders if o.number == order_number), None)
+            
+            #Si la orden no es reciente o no existe, restaurar estilo
+            if not(order and is_recently_modified(order)):
+                if card.winfo_exists():
+                    card.config(
+                        highlightcolor=COLORS["preparing_highlight"],
+                        highlightbackground=COLORS["preparing_highlight"],
+                        bg="white"
+                    )
+                    #Restaurar bg de widgets hijos
+                    for child in card.winfo_children():
+                        if isinstance(child, tk.Frame):
+                            if child.cget("bg")== COLORS["alert_bg"]:
+                                child.config(bg="white")
+                            #Restaurar labels dentro de frames
+                            for grandchild in child.winfo_children():
+                                if isinstance(grandchild, tk.Label):
+                                    current_bg = grandchild.cget("bg")
+                                    if current_bg == COLORS["alert_bg"]:
+                                        grandchild.config(bg="white")
+                cards_to_remove.append(order_number)
+                
+            #Limpiar tarjetas que ya no tienen alerta
+            for order_number in cards_to_remove:
+                del self.flashing_projection_cards[order_number]
+            
     def render(self):
         if self.projection_frame is None or not self.projection_frame.winfo_exists():
             return
@@ -82,11 +123,23 @@ class ProjectionWindow:
             
             col = idx % PROJECTION_COLUMNS
             row = idx // PROJECTION_COLUMNS
-
+            
+            #Determinar si la orden fue modificada recientemente
+            is_modified = is_recently_modified(order)
+            
+            #Configurar colores segun si fue modificada
+            card_bg = COLORS["alert_bg"] if is_modified else "white"
+            border_color = COLORS["alert_color"] if is_modified else COLORS ["preparing_highlight"]
+            border_width = 5 if is_modified else 3
+            
             card = tk.Frame(self.projection_frame, bd=3, relief="solid",
-                            padx=10, pady=8, bg="white", highlightbackground=COLORS["preparing_highlight"],
-                            highlightthickness=3)
+                            padx=10, pady=8, bg=card_bg, highlightbackground=border_color,
+                            highlightthickness=border_width)
             card.grid(row=row, column=col, padx=4, pady=12, sticky="nsew")
+
+            #Registrar tarjeta si está modificada
+            if is_modified:
+                self.flashing_projection_cards[order.number] = card
 
             card.grid_columnconfigure(0, weight=1)
             card.grid_rowconfigure(1, weight=1)
@@ -108,9 +161,22 @@ class ProjectionWindow:
             tk.Label(header_frame, textvariable=self.elapsed_vars[order.number],
                       font=FONTS["projection_time"], bg=COLORS["preparing_highlight"], fg=COLORS["clock_fg"]).pack(side="right")
             
+            #Mostrar etiqueta de modificacion si aplica
+            if is_modified and order.updated_at:
+                updated_time_str = order.updated_at.strftime("%I:%M:%S %p")
+                mod_label_frame = tk.Frame(card, bg=card_bg)
+                mod_label_frame.grid(row=1, column=0, sticky="ew", pady=(0,5))
+                tk.Label(mod_label_frame, text=f"⚠️ Modificado: {updated_time_str}",
+                         font=("Arial", 12, "bold"), bg=card_bg,
+                         fg="darkred").pack(anchor="w", padx=5)
+                items_row = 2
+            else:
+                items_row = 1
+                         
+            
             # Items
-            items_frame = tk.Frame(card, bg="white")
-            items_frame.grid(row=1, column=0, sticky="ew", pady=(0, 5))
+            items_frame = tk.Frame(card, bg=card_bg)
+            items_frame.grid(row=items_row, column=0, sticky="ew", pady=(0, 5))
             
             if len(order.items) > 5:
                 items_frame.columnconfigure(0, weight=1)
@@ -123,12 +189,12 @@ class ProjectionWindow:
             else:
                 for item in order.items:
                     tk.Label(items_frame, text=f"• {item}", anchor="w", font=FONTS["projection_item"], 
-                             bg="white").pack(fill="x", pady=1, padx=1)
+                             bg=card_bg).pack(fill="x", pady=1, padx=1)
             
             # Notas
             if order.notes:
                 notes_frame = tk.Frame(card, bg=COLORS["notes_bg"], padx=6, pady=4, relief="solid", bd=1)
-                notes_frame.grid(row=2, column=0, sticky="ew", pady=(5, 0))
+                notes_frame.grid(row=items_row+1, column=0, sticky="ew", pady=(5, 0))
                 tk.Label(notes_frame, text=f"📝 {order.notes}",
                          font=FONTS["projection_note"], bg=COLORS["notes_bg"],
                          fg=COLORS["notes_fg"], wraplength=400, justify="left", anchor="w").pack(fill="x")
