@@ -33,8 +33,6 @@ cd kitchen-order-board
 # Ejecutar la aplicación
 python main.py
 📁 Estructura del Proyecto
-markdown
-Copiar código
 kitchen_orders/
 ├── main.py
 ├── config.py
@@ -57,6 +55,26 @@ kitchen_orders/
 │   └── time_utils.py
 ├── orders_backup.json
 └── README.md
+
+📦 Crear Ejecutable
+
+Requisitos del sistema:
+
+Windows 7 o superior
+No requiere Python instalado
+Aproximadamente 50-100 MB de espacio en disco
+
+Para usuarios finales (sin Python instalado)
+Puedes crear un ejecutable standalone usando PyInstaller:
+
+#1. Instalar PyInstaller
+pip install pyinstaller
+
+# 2. Crear ejecutable de un solo archivo
+pyinstaller --onefile --windowed --name=KitchenOrders --icon=logo.ico --add-data "kitchen_orders;kitchen_orders" run.py
+
+# 3. El ejecutable estará en la carpeta 'dist/'
+
 
 🎯 Uso
 Crear una nueva orden
