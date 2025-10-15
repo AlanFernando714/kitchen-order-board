@@ -6,6 +6,7 @@ __pycache__/
 # Archivos de datos del proyecto (Kitchen Orders)
 orders_backup.json
 df
+Creacion_ejecutable.txt
 
 # C extensions
 *.so
