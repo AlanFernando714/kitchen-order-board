@@ -110,6 +110,11 @@ class MainWindow:
     def remove_order(self, order):
         """Función para eliminar la orden."""
         self.orders.remove(order)
+        
+        #Reiniciar el contador de ordenes si la lista queda vacia
+        if not self.orders:
+            Order.set_next_id(1)
+        
         save_orders(self.orders)
         self.render_orders()
 

@@ -27,15 +27,21 @@ def load_orders():
             with open(BACKUP_FILE, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
-            # 1. Restaurar el contador de IDs en la clase Order
-            # La función set_next_id la definimos en models/order.py
-            Order.set_next_id(data.get("last_id", 1))
-
-            # 2. Restaurar las órdenes, usando el método estático from_dict
-            orders_list = [Order.from_dict(order_data) for order_data in data.get("orders", [])]
-            print(f"Backup cargado: {len(orders_list)} órdenes restauradas")
+            #Restaurar las ordenes, usando el metodo estatico from_dict
+            orders_list = [Order.from_dict(order_data) for order_data in data.get("orders",[])]
+            
+            #Restaurar el contador de IDs en la clase Order
+            #Verificacion adicional
+            if not orders_list:
+                #Si no hay ordenes restauradas, reinicia el contador de IDs a 1
+                Order.set_next_id(1)
+            else:
+                #Si hay ordenes, usa el last_id del archivo
+                Order.set_next_id(data.get("last_id", 1))
+                
+            print(f"Backup cargado: {len(orders_list)} órdenes restuairadas")
             return orders_list
-
+        
         except Exception as e:
             print(f"Error al cargar backup: {e}")
             return [] # Retorna lista vacía en caso de error
