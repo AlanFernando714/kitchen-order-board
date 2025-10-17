@@ -2,54 +2,65 @@
 
 import json
 import os
+import sys
 from ..models.order import Order # Importa la clase Order
-from ..config import BACKUP_FILE # Importa el nombre del archivo de backup
+
+
+def get_backup_path():
+    #Obtiene la ruta correcta del archivo de backup, funciona en desarrollo y en ejecutables
+    
+    if getattr(sys, 'frozen', False):
+        #Ejecutable empaquetado con PyInstaller
+        app_dir = os.path.dirname(sys.executable)
+    else:
+        #En desarrollo
+        app_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    backup_file = os.path.join(app_dir, "orders_backup.json")
+    return backup_file
 
 def save_orders(orders):
     """Guarda la lista de órdenes y el último ID asignado en un archivo JSON."""
     try:
-        # Usa Order._ids para guardar el próximo ID que debería asignarse
+        backup_path = get_backup_path()
+        
         data = {
             "last_id": Order._ids,
             "orders": [order.to_dict() for order in orders]
         }
-        with open(BACKUP_FILE, 'w', encoding='utf-8') as f:
-            # 'ensure_ascii=False' permite guardar caracteres especiales como la ñ o tildes
-            json.dump(data, f, ensure_ascii=False, indent=2) 
-        print(f"Backup guardado: {len(orders)} órdenes")
+        with open(backup_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"Backup guardado en: {backup_path}")
     except Exception as e:
-        print(f"Error al guardar backup: {e}")
+        print(f"Error al guardar bacjup: {e}")
 
 def load_orders():
     """Carga la lista de órdenes desde un archivo JSON o crea ejemplos si no existe."""
-    if os.path.exists(BACKUP_FILE):
+    backup_path = get_backup_path()
+    
+    if os.path.exists(backup_path):
         try:
-            with open(BACKUP_FILE, 'r', encoding='utf-8') as f:
+            with open(backup_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-
-            #Restaurar las ordenes, usando el metodo estatico from_dict
+        
             orders_list = [Order.from_dict(order_data) for order_data in data.get("orders",[])]
             
-            #Restaurar el contador de IDs en la clase Order
-            #Verificacion adicional
             if not orders_list:
-                #Si no hay ordenes restauradas, reinicia el contador de IDs a 1
                 Order.set_next_id(1)
             else:
-                #Si hay ordenes, usa el last_id del archivo
                 Order.set_next_id(data.get("last_id", 1))
                 
-            print(f"Backup cargado: {len(orders_list)} órdenes restuairadas")
+            print(f"Backup cargado desde: {backup_path}")
+            print(f"Órdenes restauradas: {len(orders_list)}")
             return orders_list
         
         except Exception as e:
             print(f"Error al cargar backup: {e}")
-            return [] # Retorna lista vacía en caso de error
-
+            return []
     else:
-        # Si no existe archivo, crea órdenes de ejemplo
-        print("No se encontró archivo de backup. Creando órdenes de ejemplo.")
-        
+        print(f"No se encontró archivo de backup en: {backup_path}")
+        print("Creando órdenes de ejemplo.")         
+         
         #Para eliminar el ejemplo de órdenes, únicamente dejar orders_list = []
         orders_list = [
             Order("Cliente 1", ["5kg Res taco", "9kg Res guiso"]),
