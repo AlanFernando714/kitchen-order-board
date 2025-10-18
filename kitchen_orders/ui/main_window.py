@@ -26,7 +26,7 @@ class MainWindow:
 
         self.notebook = ttk.Notebook(root)
         self.notebook.pack(expand=True, fill="both")
-        
+
         self.projection_manager = ProjectionWindow(root, self.orders, self.elapsed_vars)
 
         self._create_tabs()
