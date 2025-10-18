@@ -37,6 +37,9 @@ MANIFEST
 *.manifest
 *.spec
 
+#Carpeta del instalador de Inno Setup
+Output/
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
