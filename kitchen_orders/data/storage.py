@@ -8,6 +8,7 @@ from ..models.order import Order # Importa la clase Order
 
 def get_backup_path():
     #Obtiene la ruta correcta del archivo de backup, funciona en desarrollo y en ejecutable
+    #Al crear ejecutable, su archivo backup se crera en la carpeta: C:\Users\<tu_usuario>\AppData\Roaming\KitchenOrders\orders_backup.json
     if getattr(sys, 'frozen', False):
         #Ejecutable empaquetado con PyInstaller
         appdata_dir = os.path.join(os.getenv("APPDATA"), "KitchenOrders")
@@ -15,6 +16,7 @@ def get_backup_path():
         backup_file = os.path.join(appdata_dir, "orders_backup.json")
     else:
         #En desarrollo
+        #Archivo backup se guarda en carpeta raiz del proyecto.
         app_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         backup_file = os.path.join(app_dir, "orders_backup.json")
     return backup_file
