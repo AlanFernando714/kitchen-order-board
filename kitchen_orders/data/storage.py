@@ -7,16 +7,16 @@ from ..models.order import Order # Importa la clase Order
 
 
 def get_backup_path():
-    #Obtiene la ruta correcta del archivo de backup, funciona en desarrollo y en ejecutables
-    
+    #Obtiene la ruta correcta del archivo de backup, funciona en desarrollo y en ejecutable
     if getattr(sys, 'frozen', False):
         #Ejecutable empaquetado con PyInstaller
-        app_dir = os.path.dirname(sys.executable)
+        appdata_dir = os.path.join(os.getenv("APPDATA"), "KitchenOrders")
+        os.makedirs(appdata_dir, exist_ok=True)
+        backup_file = os.path.join(appdata_dir, "orders_backup.json")
     else:
         #En desarrollo
         app_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-    backup_file = os.path.join(app_dir, "orders_backup.json")
+        backup_file = os.path.join(app_dir, "orders_backup.json")
     return backup_file
 
 def save_orders(orders):
