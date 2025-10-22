@@ -80,12 +80,14 @@ class ProjectionWindow:
             #Si la orden no es reciente o no existe, restaurar estilo
             if not(order and is_recently_modified(order)):
                 if card.winfo_exists():
+                    #Restaurar el borde y el fondo general
                     card.config(
                         highlightcolor=COLORS["preparing_highlight"],
                         highlightbackground=COLORS["preparing_highlight"],
                         bg="white"
                     )
-                    #Restaurar bg de widgets hijos
+                    
+                    #Restaurar bg de widgets hijos, sin eliminar texto de modificado
                     for child in card.winfo_children():
                         if isinstance(child, tk.Frame):
                             if child.cget("bg")== COLORS["alert_bg"]:
@@ -96,6 +98,8 @@ class ProjectionWindow:
                                     current_bg = grandchild.cget("bg")
                                     if current_bg == COLORS["alert_bg"]:
                                         grandchild.config(bg="white")
+                                    if "Modificado" in grandchild.cget("text"):
+                                        grandchild.config(fg="darkred", bg=card.cget("bg"))
                 cards_to_remove.append(order_number)
                 
             #Limpiar tarjetas que ya no tienen alerta
