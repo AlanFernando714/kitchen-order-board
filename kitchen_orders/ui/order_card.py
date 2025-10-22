@@ -78,7 +78,7 @@ class OrderCard(tk.Frame):
         if self.order.number not in self.elapsed_vars:
             self.elapsed_vars[self.order.number] = tk.StringVar()
         tk.Label(header_frame, textvariable=self.elapsed_vars[self.order.number], 
-                 fg="gray", bg=card_bg).pack(side="right")
+                 fg="gray", bg=card_bg, font=FONTS["time_main"]).pack(side="right")
         
         #Fila 1: Etiqueta de última edición
         if self.order.updated_at and self.order.updated_at> self.order.created_at + timedelta(seconds=1):
