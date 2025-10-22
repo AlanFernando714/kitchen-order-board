@@ -8,7 +8,7 @@ from datetime import timedelta
 BACKUP_FILE = "orders_backup.json"
 
 #Umbral de tiempo para la alerta de modificacion de la órden
-MODIFIED_THRESHOLD = timedelta(minutes=5) #El tiempo que dura el parpadeo de la tarjeta
+MODIFIED_THRESHOLD = timedelta(minutes=1) #El tiempo que dura el parpadeo de la tarjeta
 
 # Configuración de ventanas
 MAIN_WINDOW_SIZE = "800x600"
@@ -60,6 +60,8 @@ FONTS = {
     "projection_item": ("Arial", 18, "bold"),
     "projection_item_small": ("Arial", 15, "bold"),
     "projection_note": ("Arial", 13, "italic"),
+    "projection_modified": ("Arial", 12, "bold"),
+    "projection_modified_old": ("Arial", 11, "normal"),
     "button": ("Arial", 12, "bold"),
     "form": ("Arial", 11),
     "note_label": ("Arial", 10)
