@@ -51,6 +51,7 @@ FONTS = {
     "title": ("Arial", 16, "bold"),
     "header": ("Arial", 20, "bold"),
     "clock": ("Arial", 20, "bold"),
+    "time_main": ("Arial",7),
     "card_title": ("Arial", 11, "bold"),
     "card_item": ("Arial", 11),
     "projection_order_num": ("Arial", 14, "bold"),
