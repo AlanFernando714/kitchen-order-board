@@ -108,7 +108,7 @@ Nota: Órdenes de ejemplo creadas en la pestaña "Nuevo" pueden eliminarse edita
 
 📺 Ventana de Proyección
 Haz clic en "📺 Abrir Pantalla Carnicería"
-Muestra hasta 15 órdenes simultáneamente
+Muestra hasta 8 órdenes simultáneamente (valor ajustable en config.py) para una mejor visión en el tamaño de pedidos.
 Actualización en tiempo real
 Diseño optimizado para visualización a distancia
 Resalta órdenes modificadas con advertencia visual ⚠️
