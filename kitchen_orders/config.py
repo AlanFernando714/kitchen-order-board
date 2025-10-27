@@ -16,11 +16,11 @@ PROJECTION_WINDOW_SIZE = "1920x1080+1366+0" # Ajusta a tu configuración de moni
 EDIT_WINDOW_SIZE = "450x550"
 
 # Límites de órdenes
-MAX_PREPARING_ORDERS = 15
-MAX_VISIBLE_PROJECTION_ORDERS = 15
+MAX_PREPARING_ORDERS = 8
+MAX_VISIBLE_PROJECTION_ORDERS = 8
 
 # Configuración de UI
-PROJECTION_COLUMNS = 5
+PROJECTION_COLUMNS = 4
 ORDER_CARD_COLUMNS = 5
 
 # Estados de órdenes
@@ -54,12 +54,12 @@ FONTS = {
     "time_main": ("Arial",7),
     "card_title": ("Arial", 11, "bold"),
     "card_item": ("Arial", 11),
-    "projection_order_num": ("Arial", 14, "bold"),
-    "projection_table": ("Arial", 15),
+    "projection_order_num": ("Arial", 18, "bold"),
+    "projection_table": ("Arial", 20),
     "projection_time": ("Arial", 11),
-    "projection_item": ("Arial", 18, "bold"),
-    "projection_item_small": ("Arial", 15, "bold"),
-    "projection_note": ("Arial", 13, "italic"),
+    "projection_item": ("Arial", 32, "bold"),
+    "projection_item_small": ("Arial", 22, "bold"),
+    "projection_note": ("Arial", 15, "italic"),
     "projection_modified": ("Arial", 12, "bold"),
     "projection_modified_old": ("Arial", 11, "normal"),
     "button": ("Arial", 12, "bold"),
